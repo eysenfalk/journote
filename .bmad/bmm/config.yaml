@@ -3,7 +3,7 @@
 # Version: 6.0.0-alpha.9
 # Date: 2025-11-15T15:28:34.938Z
 
-project_name: bmad2
+project_name: Life.D
 user_skill_level: beginner
 sprint_artifacts: '{project-root}/docs/sprint-artifacts'
 tea_use_mcp_enhancements: true

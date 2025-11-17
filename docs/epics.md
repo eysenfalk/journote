@@ -1071,11 +1071,361 @@ _Epics 4-6 will follow the same detailed BDD format covering Smart Reminders, Jo
 
 ---
 
+---
+
+## Remaining Stories (Epics 3-6)
+
+_The following stories are summarized. Full BDD acceptance criteria will be added as needed during implementation._
+
+### Epic 3: Remaining Stories (3.6-3.10)
+
+**Story 3.6: Task Dependencies & Blocking**
+- Tasks can depend on other tasks (can't start until dependency complete)
+- Visual indicator: Blocked badge + dependency tree view
+- Auto-unblock when dependency completed
+
+**Story 3.7: Snooze & Reschedule Tasks**
+- Swipe left → snooze menu (1 hour, 3 hours, tomorrow, next week, custom)
+- Snoozed tasks hidden from Now view until snooze expires
+- Snooze history visible in task details
+
+**Story 3.8: Archive Completed Tasks**
+- Completed tasks auto-archived after 7 days
+- Archive view: searchable, filterable by date/tags
+- Restore from archive option
+
+**Story 3.9: Quick Actions (Swipe Gestures)**
+- Swipe right: Mark complete (with undo)
+- Swipe left: Snooze menu
+- Long-press: Quick edit (change priority, reschedule, add tags)
+- Drag-and-drop: Reorder tasks (custom sort)
+
+**Story 3.10: Task Completion Stats for Weekly Review**
+- Calculate completion rate: completed / (completed + incomplete)
+- Track overdue rate: overdue / total due
+- Generate weekly report data for Story 5.12 (Weekly Review)
+
+---
+
+## Epic 4: ADHD-Optimized Smart Reminders
+
+**Goal:** Escalating, context-aware notifications that respect ADHD attention patterns.
+
+**Value:** Core mission enabler—reminders that actually work for ADHD brains.
+
+**FR Coverage:** FR18-FR25 (notifications, reminders, digests, quiet hours)
+
+**Stories (8):**
+
+**Story 4.1: Basic Notification Infrastructure**
+- Platform-specific: Windows toast notifications, Android notification channels
+- Permission requests (ADHD-friendly explanations)
+- Notification priority levels (low/medium/high/urgent)
+
+**Story 4.2: Escalating Task Reminders**
+- Level 1 (1 day before due): Gentle reminder
+- Level 2 (1 hour before due): Standard notification
+- Level 3 (15 min before due): Urgent notification (sound + vibration)
+- Level 4 (overdue): Persistent notification (repeats every 30 min until dismissed)
+
+**Story 4.3: Location-Aware Reminders (Mobile)**
+- Geofence setup: Home, Work, Gym, Grocery Store (user-defined)
+- Tasks tagged with location trigger when entering geofence
+- Example: "@grocery Buy milk" triggers when entering grocery store
+- Battery-efficient: Use passive location updates
+
+**Story 4.4: Context-Aware Reminder Timing**
+- Don't remind during meetings (check calendar events)
+- Respect work hours setting (no work tasks after 6pm)
+- Detect "focus time" (no notifications during long sessions with app closed)
+
+**Story 4.5: Daily Digest Notification**
+- Morning digest (8am default, configurable): "Good morning! 5 tasks today"
+- Shows: Overdue count, Today count, Urgent priority list
+- Tap → opens Now view
+
+**Story 4.6: Weekly Digest Notification**
+- Sunday evening (7pm default): "Week ahead: 12 tasks scheduled"
+- Shows: Monday-Friday task counts, Overdue tasks, Recurring commitments
+- Tap → opens This Week view
+
+**Story 4.7: Persistent Urgent Task Notification**
+- Urgent priority tasks show persistent notification (doesn't auto-dismiss)
+- Stays in notification area until task completed or priority lowered
+- Actions: Complete | Snooze | Open App
+
+**Story 4.8: Quiet Hours & Snooze Settings**
+- Quiet hours: No notifications during defined hours (default 10pm-7am)
+- Snooze all: Temporarily disable all notifications (1 hour, until tomorrow)
+- Exception: Urgent priority always notifies (can't be snoozed)
+
+---
+
+## Epic 5: Life-Systems Journaling
+
+**Goal:** Daily prompts with 1-10 ratings detect invisible self-changes via trend analysis.
+
+**Value:** Secondary mission—self-awareness through data, not memory.
+
+**FR Coverage:** FR34-FR45 (journal prompts, ratings, trends, encryption), FR62-FR67 (weekly review)
+
+**Stories (12):**
+
+**Story 5.1: Daily Journal Prompt Screen**
+- Appears in Journal tab (bottom nav)
+- Date selector (defaults to today)
+- Can fill past days (if missed)
+- Save as draft, complete later
+
+**Story 5.2: Life-Systems Rating Inputs (1-10 Scale)**
+- Four systems: Relationship, Work, Energy, Mood
+- Slider input with emoji indicators:
+  - 1-3: 😞 (red)
+  - 4-6: 😐 (yellow)
+  - 7-10: 😊 (green)
+- Optional text notes per system (200 chars max)
+
+**Story 5.3: Freeform Reflection Field**
+- Multi-line text input (2000 chars max)
+- Placeholder: "Anything else on your mind today?"
+- Optional (can skip)
+- Saved separately from ratings
+
+**Story 5.4: Journal Entry Encryption**
+- Encryption toggle in Settings (default: on)
+- User sets encryption password (separate from account password)
+- AES-256 encryption for journal content
+- Password stored in secure storage (never sent to server)
+- Decrypt on-demand (password required to view old entries)
+
+**Story 5.5: Journal Calendar Heatmap**
+- Calendar view showing days with entries (filled circles)
+- Color intensity: green=positive average, yellow=neutral, red=negative
+- Tap day → view that day's entry
+- Empty days: "Missed" indicator
+
+**Story 5.6: 7-Day Trend Graph**
+- Line chart for each system (Relationship, Work, Energy, Mood)
+- X-axis: Days (Mon-Sun)
+- Y-axis: Rating (1-10)
+- Color-coded lines (customizable)
+- Tap data point → view that day's notes
+
+**Story 5.7: 30-Day Trend Analysis**
+- Extended trend graph (30 days)
+- Statistics: Average, Min, Max, Standard deviation per system
+- Trend indicators: ↗️ Improving | → Stable | ↘️ Declining
+- Alert if sharp decline detected (>3 points in 7 days)
+
+**Story 5.8: Cross-System Correlation Detection**
+- Analyze correlations: "Low energy → low work rating" (common pattern)
+- Display insights: "When energy is <5, work averages 4.2"
+- Suggest: "Prioritize energy management to improve work satisfaction"
+- Machine learning optional Phase 2 enhancement
+
+**Story 5.9: Journal Streak Tracking**
+- Track consecutive days with entries
+- Show current streak: "5 day streak! 🔥"
+- Personal best: "Longest streak: 23 days"
+- Gentle reminder if streak about to break
+
+**Story 5.10: Journal Reminder Notification**
+- Evening reminder (8pm default, configurable)
+- "Time to check in. How was your day?"
+- Snooze: 30 min, 1 hour, Skip today
+- Auto-skip if already completed today
+
+**Story 5.11: Journal History & Search**
+- List view: All entries, reverse chronological
+- Search: Full-text search across notes + reflection
+- Filter: By date range, by rating range (e.g., "Show days when mood < 4")
+- Export: CSV or JSON for external analysis
+
+**Story 5.12: Weekly Review Workflow**
+- Triggered: Sunday evening OR manual from More tab
+- Shows:
+  - Task completion stats (from Story 3.10)
+  - Journal trend summary (7-day averages)
+  - Overdue tasks requiring decision (reschedule or delete)
+  - Reflection prompt: "What didn't get done? Why?"
+- Actions:
+  - Reschedule overdue tasks (bulk or individual)
+  - Archive completed tasks
+  - Set intentions for next week
+
+---
+
+## Epic 6: Settings & Data Portability
+
+**Goal:** User customization and data ownership (export/import/sync control).
+
+**Value:** Trust and control—your data, your rules.
+
+**FR Coverage:** FR46-FR53 (export, import, sync), FR54-FR61 (settings, preferences)
+
+**Stories (8):**
+
+**Story 6.1: Notification Preferences**
+- Toggle per notification type (task reminders, daily digest, weekly digest, journal reminder)
+- Notification sound selection (system sounds + silent)
+- Vibration toggle (mobile only)
+- Test notification button
+
+**Story 6.2: Journal Configuration**
+- Customize reminder time (default 8pm)
+- Customize rating systems: Rename or hide (e.g., hide "Relationship" if single)
+- Customize scale (1-10 vs 1-5 vs emoji-only)
+- Toggle encryption on/off
+
+**Story 6.3: Context Tags Management**
+- View all tags with usage count
+- Edit tag name (updates all captures/tasks)
+- Set tag colors (for visual differentiation)
+- Merge duplicate tags (e.g., merge "@work" and "@office")
+- Delete unused tags
+
+**Story 6.4: Work Hours & Quiet Hours**
+- Set work hours (default 9am-6pm Mon-Fri)
+- Tasks tagged @work only remind during work hours
+- Set quiet hours (default 10pm-7am daily)
+- No notifications during quiet hours (except urgent)
+
+**Story 6.5: Location Tracking Toggle**
+- Enable/disable location-aware reminders
+- View saved locations (Home, Work, etc.)
+- Edit geofences (radius adjustment)
+- Privacy notice: Location never sent to server (local-only)
+
+**Story 6.6: Appearance Settings**
+- Theme: Light | Dark | System default
+- Font size: Small | Medium | Large | Extra Large
+- Color scheme: Default | Colorblind-friendly | High contrast
+- Accent color picker
+
+**Story 6.7: Data Export**
+- Export all data: CSV, JSON, or Markdown
+- Export options:
+  - Captures only
+  - Tasks only
+  - Journal entries only (encrypted or decrypted)
+  - Everything
+- Include metadata: Created dates, sync status, tags
+- Save to device or share via system share sheet
+
+**Story 6.8: Data Import & Restore**
+- Import from file: CSV or JSON
+- Match columns to fields (flexible mapping)
+- Preview before import (show first 10 rows)
+- Conflict resolution: Skip duplicates OR overwrite
+- Restore from backup: Full account restore (all data + settings)
+
+---
+
+## FR Coverage Matrix
+
+This table maps each of the 67 functional requirements to their implementing stories:
+
+| FR | Description | Epic | Stories |
+|----|-------------|------|---------|
+| FR1 | Desktop hotkey capture | 2 | 2.1 |
+| FR2 | Mobile widget capture | 2 | 2.2 |
+| FR3 | Auto-categorize captures | 2 | 2.3 |
+| FR4 | Search captures | 2 | 2.4 |
+| FR5 | Tag captures | 2 | 2.5 |
+| FR6 | Context-aware suggestions | 2 | 2.3 |
+| FR7 | Offline capture | 1, 2 | 1.2, 2.1, 2.2 |
+| FR8 | Quick capture (<3s) | 2 | 2.1, 2.2 |
+| FR9 | Create tasks | 3 | 3.1 |
+| FR10 | Edit tasks | 3 | 3.1 |
+| FR11 | Delete tasks | 3 | 3.1 |
+| FR12 | Recurring tasks | 3 | 3.2 |
+| FR13 | Task dependencies | 3 | 3.6 |
+| FR14 | Calendar import | 3 | 3.3 |
+| FR15 | Task completion | 3 | 3.1, 3.9 |
+| FR16 | Archive tasks | 3 | 3.8 |
+| FR17 | Task search/filter | 3 | 3.4 |
+| FR18 | Escalating reminders | 4 | 4.2 |
+| FR19 | Location-aware reminders | 4 | 4.3 |
+| FR20 | Context-aware timing | 4 | 4.4 |
+| FR21 | Daily digest | 4 | 4.5 |
+| FR22 | Persistent urgent notification | 4 | 4.7 |
+| FR23 | Snooze notifications | 4 | 4.8 |
+| FR24 | Quiet hours | 4 | 4.8 |
+| FR25 | Weekly digest | 4 | 4.6 |
+| FR26 | "Now" view | 3 | 3.4, 3.5 |
+| FR27 | "Today" view | 3 | 3.4, 3.5 |
+| FR28 | "This Week" view | 3 | 3.4, 3.5 |
+| FR29 | Real-time countdown | 3 | 3.5 |
+| FR30 | Dashboard refresh | 3 | 3.5 |
+| FR31 | Quick actions | 3 | 3.9 |
+| FR32 | Visual priority | 3 | 3.1, 3.5 |
+| FR33 | Empty states | 3 | 3.5 |
+| FR34 | Daily journal prompt | 5 | 5.1 |
+| FR35 | 1-10 rating scale | 5 | 5.2 |
+| FR36 | Four life systems | 5 | 5.2 |
+| FR37 | Freeform reflection | 5 | 5.3 |
+| FR38 | Journal encryption | 5 | 5.4 |
+| FR39 | 7-day trends | 5 | 5.6 |
+| FR40 | 30-day trends | 5 | 5.7 |
+| FR41 | Trend alerts | 5 | 5.7 |
+| FR42 | Correlation detection | 5 | 5.8 |
+| FR43 | Journal calendar | 5 | 5.5 |
+| FR44 | Streak tracking | 5 | 5.9 |
+| FR45 | Journal reminder | 5 | 5.10 |
+| FR46 | Local-first storage | 1 | 1.2 |
+| FR47 | Cross-device sync | 1 | 1.4 |
+| FR48 | Conflict resolution | 1 | 1.4 |
+| FR49 | Data export | 6 | 6.7 |
+| FR50 | Data import | 6 | 6.8 |
+| FR51 | Sync status | 1, 3 | 1.4, 2.4 |
+| FR52 | Manual sync | 1 | 1.4 |
+| FR53 | Cloud backup | 1 | 1.4 |
+| FR54 | Email auth | 1 | 1.3 |
+| FR55 | Notification prefs | 6 | 6.1 |
+| FR56 | Journal config | 6 | 6.2 |
+| FR57 | Tag management | 6 | 6.3 |
+| FR58 | Work hours | 6 | 6.4 |
+| FR59 | Location tracking | 6 | 6.5 |
+| FR60 | Appearance | 6 | 6.6 |
+| FR61 | Credential storage | 1 | 1.3 |
+| FR62 | Weekly review generation | 5 | 5.12 |
+| FR63 | Completion analysis | 3, 5 | 3.10, 5.12 |
+| FR64 | Trend analysis | 5 | 5.12 |
+| FR65 | Reflection prompt | 5 | 5.12 |
+| FR66 | Reschedule in review | 5 | 5.12 |
+| FR67 | Review reminder | 5 | 5.12 |
+
+**Total Coverage:** 67/67 FRs mapped to 48 stories across 6 epics ✅
+
+---
+
 ## Next Steps
 
-This document will be updated by subsequent workflows:
-1. **UX Design workflow** → Adds wireframes/mockups to each story
-2. **Architecture workflow** → Adds technical architecture diagrams + API specs
-3. **Implementation** → Marks stories complete, adds retrospective learnings
+### 1. Import to GitHub
+Use `docs/github-issues-import.md` to create all issues in the `eysenfalk/journote` repository.
 
-[c] Continue with remaining stories for Epics 3-6 | [stop] This detail is sufficient
+### 2. UX Design Workflow
+Run UX Design agent to add wireframes/mockups to each story.
+
+### 3. Architecture Workflow
+Run Architecture agent to add:
+- Technical architecture diagrams
+- API specifications
+- Database ER diagrams
+- Component interaction flows
+
+### 4. Implementation
+Start with Epic 1, Story 1.1. Each story is designed for single dev agent session.
+
+### 5. Living Document Updates
+This document will be updated as:
+- Stories are completed (checkmarks ✅)
+- Retrospectives add learnings
+- Architecture evolves (schema changes, new patterns)
+- UX iterations refine designs
+
+---
+
+**Document Status:** Phase 0 - Epic Breakdown Complete  
+**Last Updated:** November 17, 2025  
+**Next Update Trigger:** After UX Design workflow or Architecture workflow completes
